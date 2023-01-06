@@ -43,17 +43,18 @@ Data columns (total 10 columns):
 ####결측치 처리 1, 제거####
 print(train_csv.isnull().sum())
 train_csv = train_csv.dropna() 
-print(train_csv.shape)
+#print(train_csv.shape)
 #info와 isnull의 차이점 기억
 
-print(test_csv.info())
-print(train_csv.describe())
+#print(test_csv.info())
+#print(train_csv.describe())
 
 x = train_csv.drop(['count'],axis = 1)#count제거
-print(x)#[1459 rows x 9 columns]
+print(x)
 y = train_csv['count']
-print(y)
-print(y.shape)#(1459,)
+#print(y)
+print(y.shape)
+print(x.shape)
 
 
 #2. 모델구성
