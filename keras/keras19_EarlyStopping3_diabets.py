@@ -38,8 +38,14 @@ model.add(Dense(1))
 
 #3. 컴파일 및 훈련
 model.compile(loss='mae', optimizer='adam', metrics  = ['mse'])
-model.fit(x_train, y_train, epochs = 200,
-          validation_split = 0.2)
+from tensorflow.keras.callbacks import EarlyStopping
+earlyStopping = EarlyStopping(monitor='val_loss',mode = 'min',
+                              patience=5,restore_best_weights=True,
+                              verbose=1) #mode =auto/min/max 보통 min으로 줌
+hist= model.fit(x_train,y_train,epochs=400,batch_size = 1,
+          validation_split=0.2,
+          verbose=1,
+          callbacks = [earlyStopping])
 
 
 #4. 평가 및 예측
@@ -55,5 +61,20 @@ print("RMSE: ", RMSE(y_test, y_predict))
 
 r2 = r2_score(y_test, y_predict)
 print("R2: ", r2)
+
+import matplotlib.pyplot as plt
+plt.figure(figsize = (9,6))
+plt.plot(hist.history['loss'], c = 'red',
+         marker = '.', label = 'loss')
+plt.plot(hist.history['val_loss'], c = 'blue',
+         marker = '.',label = 'val_loss')
+plt.grid()
+plt.xlabel('epochs')
+plt.ylabel('loss')
+plt.title('Diabets Loss')
+plt.legend(loc = 'upper right')
+plt.show()
+
+
 
 #R2 = 0.55

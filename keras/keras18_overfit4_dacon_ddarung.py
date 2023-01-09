@@ -80,13 +80,12 @@ model.add(Dense(32,activation= 'relu'))
 model.add(Dense(1))
 
 #3. 컴파일 및 훈련
-import time
+
 model.compile(loss='mse', optimizer='adam')
-start = time.time()
-model.fit(x_train, y_train, epochs = 150, batch_size = 1,
-          validation_split = 0.3)
-end = time.time()
-total_time = end- start
+hist= model.fit(x_train,y_train,epochs=150,batch_size = 1,
+          validation_split=0.3,
+          verbose=1)
+
 
 #4. 평가 및 예측
 loss = model.evaluate(x_test, y_test) 
@@ -100,16 +99,25 @@ def RMSE(y_test, y_predict):
 rmse = RMSE(y_test, y_predict)
 print("RMSE: ", rmse)
 
-print("소요시간:",total_time)
+import matplotlib.pyplot as plt
+plt.figure(figsize =(9,6))
+plt.plot(hist.history['loss'], c = 'red',
+         marker = '.', label = 'loss')
+plt.plot(hist.history['val_loss'], c = 'blue',
+         marker = '.',label = 'val_loss')
+plt.grid()#격자
+plt.xlabel('epochs')
+plt.ylabel('loss')
+plt.title('Ddarung Loss')
+plt.legend(loc = 'upper left')
+#plt.legend()
 
+plt.show()
 #제출할 것
 y_submit = model.predict(test_csv)
-#print(y_submit)
-#print(y_submit.shape)#(715,1)
 
 
-#. to_csv()를 사용해서 submission_0105.csv완성
-#np.savetxt("submission_0105.csv", y_submit, delimiter=",")
+
 submission['count'] = y_submit
 #print(submission)
 submission.to_csv(path+'submission_0105.csv')
