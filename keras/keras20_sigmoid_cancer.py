@@ -38,7 +38,7 @@ earlyStopping = EarlyStopping(monitor='val_loss',mode = 'min',
                               patience=20,restore_best_weights=True,
                               verbose=1) #mode =auto/min/max 보통 min으로 줌
 
-model.fit(x_train,y_train, epochs = 10, batch_size=16,
+model.fit(x_train, y_train, epochs = 10, batch_size=16,
           callbacks = [earlyStopping], verbose =1)
 
 

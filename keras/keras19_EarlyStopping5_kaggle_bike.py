@@ -11,17 +11,11 @@ train_csv = pd.read_csv(path +'train.csv',index_col=0)
 test_csv = pd.read_csv(path +'test.csv',index_col=0)
 submission = pd.read_csv(path +'sampleSubmission.csv',index_col=0)
 
-#print(train_csv)
-#print(train_csv.shape) 
-#print(submission.shape)
-#print(train_csv.columns) 
 
-#print(train_csv.info())
 
 ####결측치 처리 1, 제거####
-#print(train_csv.isnull().sum())
 train_csv = train_csv.dropna() 
-#print(train_csv.shape)
+
 
 
 
@@ -45,13 +39,9 @@ print(y_train.shape,y_test.shape)
 
 model = Sequential()
 model.add(Dense(30, input_dim = 8, activation= 'relu')) #default값 : activation = 'linear'
-model.add(Dense(62,activation= 'relu'))
-model.add(Dense(20, activation= 'relu'))
-model.add(Dense(10, activation= 'relu'))
-model.add(Dense(10, activation= 'relu'))
-model.add(Dense(10, activation= 'relu'))
+model.add(Dense(42,activation= 'relu'))
 model.add(Dense(52, activation= 'relu'))
-model.add(Dense(38, activation= 'sigmoid'))
+model.add(Dense(58, activation= 'sigmoid'))
 model.add(Dense(64, activation= 'relu'))
 model.add(Dense(42, activation= 'relu'))
 model.add(Dense(32, activation= 'relu'))
@@ -62,12 +52,11 @@ model.add(Dense(1, activation= 'linear'))# 맨 마지막 값은 sigmoid쓰면 0�
 model.compile(loss='mse', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping
 earlyStopping = EarlyStopping(monitor='val_loss',mode = 'min',
-                              patience=5,restore_best_weights=True,
+                              patience=30,restore_best_weights=True,
                               verbose=1) #mode =auto/min/max 보통 min으로 줌
-hist= model.fit(x_train,y_train,epochs=400,batch_size = 1,
+hist= model.fit(x_train,y_train,epochs=1000,batch_size = 10,
           validation_split=0.3,
           verbose=1,callbacks = [earlyStopping])
-
 
 
 #4. 평가 및 예측
