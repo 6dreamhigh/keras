@@ -54,7 +54,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 earlyStopping = EarlyStopping(monitor='val_loss',mode = 'min',
                               patience=30,restore_best_weights=True,
                               verbose=1) #mode =auto/min/max 보통 min으로 줌
-hist= model.fit(x_train,y_train,epochs=1000,batch_size = 10,
+hist= model.fit(x_train,y_train,epochs=10,batch_size = 10,
           validation_split=0.3,
           verbose=1,callbacks = [earlyStopping])
 

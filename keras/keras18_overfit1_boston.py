@@ -4,6 +4,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
+import matplotlib as mpl
+print(mpl.get_cachedir())
 
 #1. 데이터
 dataset = load_boston()         # 보스턴 집 값에 대한 데이터
