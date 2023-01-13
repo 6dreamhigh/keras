@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
 #1.데이터
-path = './_data/ddarung/'
+path = '../_data/ddarung/'
 train_csv = pd.read_csv(path +'train.csv',index_col=0)
 test_csv = pd.read_csv(path +'test.csv',index_col=0)
 submission = pd.read_csv(path +'submission.csv',index_col=0)

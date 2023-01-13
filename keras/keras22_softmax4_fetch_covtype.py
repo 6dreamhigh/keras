@@ -16,7 +16,10 @@ print(np.unique(y,return_counts=True))# 각 데이터 항목별로 몇개씩 있
 # (array([1, 2, 3, 4, 5, 6, 7]), 
 # array([211840, 283301,  35754,   2747,   9493,  17367,  20510]
 
-#pandas getdummy이용할 수도
+'''
+문제 ! ) 
+
+'''
 
 # y = pd.get_dummies(y)
 #np.delete방법도 있음

@@ -1,14 +1,14 @@
 import numpy as np 
 
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint     
+from tensorflow.keras.callbacks import EarlyStopping 
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Dense, Input
 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.datasets import load_boston
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 
 path = './_save/'
@@ -42,25 +42,30 @@ output1 = Dense(1, activation='linear') (dense4)
 model = Model(inputs=input1, outputs=output1)
 model.summary() #Total params: 4,611
 
+# model.save_weights(path + 'keras29_5_save_weights1.h5')
+
+# load_weights : 가중치만 저장되어, 모델에서 사용 못함.
+# 위에서 모델이 정의되어야 사용 가능
+# 순수하게 가중치만 저장되어 있어, 컴파일, 훈련을 사용 안하고 실행하면 컴파일 에러 발생
+# 결국에는 가중치만 저장되어 있어 컴파일에 대한 명시가 없기 때문에 직접 컴파일을 사용하여 실행
+
+
+# model.load_weights(path + 'keras29_5_save_weights1.h5')
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])                                                  
-# 모델을 더 이상 학습을 못할 경우(loss, metric등의 개선이 없을 경우), 학습 도중 미리 학습을 종료시키는 콜백함수                                                                                            
-es = EarlyStopping(monitor = 'val_loss', 
-                   mode = 'min', 
-                   patience = 100, #참을성     
-                   restore_best_weights = True, 
-                   verbose = 1)
-# 모델을 저장할 때 사용되는 콜백함수
-mcp = ModelCheckpoint(monitor = 'val_loss',
-                      mode = 'auto',
-                      verbose = 1,
-                      save_best_only = True, #저장 포인트
-                      filepath = path + 'MCP/keras30_ModelCheckPoint1.hdf5')
+                                                                                               
+# earlyStopping = EarlyStopping(monitor='val_loss', 
+                            #   mode='min', 
+                            #   patience=10, #참을성     
+                            #   restore_best_weights=True, 
+                            #   verbose=1
+                            #   )
 
-model.fit(x_train, y_train, epochs=1000, batch_size=1, validation_split=0.2, callbacks=[es, mcp])
+# model.fit(x_train, y_train, epochs=50, batch_size=1, validation_split=0.2)
 
-model.save(path + 'keras29_1_save_model.h5')  #모델 저장 (가중치 포함 안됨)
+# model.save_weights(path + 'keras29_5_save_weights2.h5') 
+model.load_weights(path + 'keras29_5_save_weights2.h5')
 
 
 #4. 평가, 예측
@@ -82,10 +87,3 @@ print("===================================")
 print("R2 : ", r2)
 print("RMSE : " , RMSE(y_test, y_predict))
 print("===================================")
-
-
-
-'''
-[MCP 저장]
-R2 :  0.8280174179284039
-'''
