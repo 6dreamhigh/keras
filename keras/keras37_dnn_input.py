@@ -69,6 +69,5 @@ print('acc : ',result[1])
 
 
 #earlystopping, mcp 적용 / val 적용
-
-# loss;  0.07674340158700943
+# loss;  0.07153831422328949
 # acc :  0.9772999882698059
