@@ -80,6 +80,6 @@ result = model.evaluate(x_test,y_test)
 print('loss; ',result[0])
 print('acc : ',result[1])
                 
-# loss;  0.9482258558273315
-# acc :  0.675599992275238
+# loss;  0.9347344040870667
+# acc :  0.682200014591217
 #earlystopping, mcp 적용 / val 적용
