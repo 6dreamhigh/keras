@@ -26,12 +26,14 @@ x    y
 789 |10
 '''
 print(x.shape,y.shape) #(7, 3) (7,)
-x = x.reshape(7,3,1) # [[[1],[2],[3]],[[2],[3],[4]],......]
-print(x.shape) #(7,3,1) 3개씩 연산한것을 한개에 상태 전달
+# x = x.reshape(7,3,1) # [[[1],[2],[3]],[[2],[3],[4]],......]
+# print(x.shape) #(7,3,1) 3개씩 연산한것을 한개에 상태 전달
 
 #2.모델
 model = Sequential()
-model.add(SimpleRNN(256,input_shape=(3,1),activation='relu')) #하나씩 가중치가 부여된다는 것 명시해야 함
+model.add(SimpleRNN(64,input_shape=(3,1),activation='relu')) #하나씩 가중치가 부여된다는 것 명시해야 함
+                         #(N, 3, 1) ->([batch, timesteps, feature]) batch = 행, feature = 연산시키는 부분 
+                         #timesteps는 시계열 data는 y값이 없기 때문에 몇개씩 자를지 짜야한다.
 model.add(Dense(128,activation='relu'))
 model.add(Dense(64,activation='sigmoid'))
 model.add(Dense(50,activation='relu'))
@@ -41,23 +43,9 @@ model.add(Dense(8))
 model.add(Dense(4))
 model.add(Dense(3))
 model.add(Dense(1))
-#컴파일, 훈련
-model.compile(loss ='mae',optimizer ='adam')
-model.fit(x,y,epochs = 1000)
-
-#평가, 예측
-loss = model.evaluate(x,y)
-print('loss : ',loss)
-#:Model was constructed with shape (None, 3, 1) 
-y_pred = np.array([8,9,10]).reshape(1,3,1)
-result = model.predict(y_pred)
-print('[8,9,10]의 결과 :',result)
-
-# loss :  0.03465390205383301
-# [8,9,10]의 결과 : [[10.629714]]
+model.summary()
+#units * (feature + bias + units) = params  (recurrent이므로 units*units)
+#simple_rnn Param => 64 *(64 + 1 + 1) = 4224 즉 , 연산량이 많아 시간을 고려
 
 
 
-
-
-#RNN은 2차원 이상 가능
