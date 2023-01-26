@@ -73,7 +73,7 @@ model.add(Dense(1))
 model.summary()
 
 
-"""
+
 #3.컴파일,훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam',  #다중분류 : categorical_crossentropy
               metrics=['accuracy']
@@ -107,4 +107,3 @@ print('y_test(원래값):',y_test)
 
 #(array([1, 2, 3, 4, 5, 6, 7]), array([211840, 283301,  35754,   2747,   9493,  17367,  20510],
 #      dtype=int64))   y : 1 ~7
-"""

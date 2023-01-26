@@ -3,7 +3,7 @@ import datetime
 
 
 from tensorflow.keras.datasets import cifar10, cifar100
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint #파이썬 클래스 대문자로 시작   
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint 
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, Input
 

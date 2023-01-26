@@ -55,7 +55,7 @@ x_test = x_test.reshape(174304, 6, 3, 3)
 
 #2. 모델구성
 model = Sequential()
-model.add(Conv2D(1024, (2,1), input_shape=(6, 3, 3)))
+model.add(Conv2D(1024, (2,1), input_shape=(6, 3, 3)))#kernel size가 직사각형도 가능하다.
 #model.add(MaxPooling2D())
 model.add(Conv2D(512, (2,1)))
 #model.add(MaxPooling2D())
