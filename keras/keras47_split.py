@@ -14,7 +14,7 @@ def split_x(dataset,timesteps):
 
 bbb = split_x(a,timesteps)
 print(bbb)
-print(bbb.shape) #(6, 5)
+print(bbb.shape) # (6, 5)
 
 x = bbb[:,:-1]
 y = bbb[:,:-1]
