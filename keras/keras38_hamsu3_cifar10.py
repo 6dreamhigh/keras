@@ -1,14 +1,13 @@
 import numpy as np
 import datetime
 
-
 from tensorflow.keras.datasets import cifar10, cifar100
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint #파이썬 클래스 대문자로 시작   
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPool2D
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, Input
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.layers import Dropout
+from tensorflow.keras.utils import to_categorical
 
 path = './_save/'
 
@@ -16,36 +15,33 @@ path = './_save/'
 # 1. 데이터
 (x_train, y_train), (x_test, y_test) = cifar10.load_data() #교육용 자료, 이미 train/test 분류
 
-print(x_train.shape, y_train.shape) #(50000, 32, 32, 3) (50000, 1)
-print(x_test.shape, y_test.shape) #(10000, 32, 32, 3) (10000, 1)
+x_train = x_train.astype('float32')
+x_test = x_test.astype('float32')
 
-x_train = x_train.reshape(50000, 32*32*3)
-x_test = x_test.reshape(10000, 32*32*3)
+x_train /= 255
+x_test /= 255
 
-# x_train = x_train.astype('float32')
-# x_test = x_test.astype('float32')
-
-
-x_train = x_train/255.
-x_test = x_test/255.
-
-#y_train = to_categorical(y_train)
-#y_test = to_categorical(y_test)
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
 
 # 2. 모델 구성 
-model = Sequential()
-model.add(Flatten(input_shape=(32*32*3,)))
-model.add(Dense(128, activation='relu'))
-model.add(Dense(128, activation='relu'))
-model.add(Dense(64, activation='relu'))
-model.add(Dense(32, activation='linear'))
-model.add(Dense(24, activation='linear'))
-model.add(Dense(10, activation='softmax'))
+inputs = Input(
+                 shape=(32, 32, 3)
+               )
+hidden1 = MaxPooling2D() (inputs)
+hidden2 = Conv2D(filters=64, kernel_size=(2, 2), padding='same', strides=2) (hidden1)
+hidden3 = Conv2D(filters=64, kernel_size=(2, 2)) (hidden2)
+hidden4 = Flatten() (hidden3)
+output = Dense(10, activation='softmax') (hidden4)
+
+
+model = Model(inputs=inputs, outputs=output)
+
 
 
 # 3. 컴파일, 훈련
 #sparse_categorical_crossentropy
-model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['acc', 'mae'])
+model.compile(loss='mse', optimizer='adam', metrics=['acc', 'mae'])
 
 
 es = EarlyStopping(monitor='val_loss', 
@@ -85,12 +81,15 @@ print('acc : ',  result[1]) # acc
 
 
 '''
-[dnn]
+[튜닝 전]
+loss :  2.3026225566864014
+acc :  0.10000000149011612
+[튜닝 후]
 loss :  0.0570102222263813
 acc :  0.5834000110626221
-[cnn]
-loss :  0.07736314088106155
-acc :  0.3564999997615814
-loss :  1.540274977684021
-acc :  0.45080000162124634
+loss :  0.05636516585946083
+acc :  0.5734999775886536
+[튜닝 후 + padding 추가]
+loss :  0.05055766925215721
+acc :  0.6243000030517578
 '''
