@@ -2,7 +2,7 @@ import numpy as np
 import datetime
 
 from tensorflow.keras.datasets import mnist, fashion_mnist
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint #파이썬 클래스 대문자로 시작   
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint  
 
 
 path = './_save/'
@@ -28,9 +28,7 @@ from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, Input
 
 # 2. 모델 구성 
-inputs = Input(
-                 shape=(28, 28, 1)
-               )
+inputs = Input(shape=(28, 28, 1))
 hidden1 = MaxPooling2D() (inputs)
 hidden2 = Conv2D(filters=64, kernel_size=(2, 2), padding='same', strides=2) (hidden1)
 hidden3 = Conv2D(filters=64, kernel_size=(2, 2)) (hidden2)

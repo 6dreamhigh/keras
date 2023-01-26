@@ -28,9 +28,7 @@ from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, Input
 
 # 2. 모델 구성 
-inputs = Input(
-                 shape=(28, 28, 1)
-               )
+inputs = Input( shape=(28, 28, 1))
 hidden1 = MaxPooling2D() (inputs)
 hidden2 = Conv2D(filters=64, kernel_size=(2, 2), padding='same', strides=2) (hidden1)
 hidden3 = Conv2D(filters=64, kernel_size=(2, 2)) (hidden2)

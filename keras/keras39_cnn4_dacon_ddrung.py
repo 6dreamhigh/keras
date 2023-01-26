@@ -13,7 +13,7 @@ from sklearn.metrics import r2_score
 
 
 #1. 데이터
-path = './_data/ddarung/'                    
+path = '../_data/ddarung/'                  
                                             #index 컬럼은 0번째
 train_csv = pd.read_csv(path + 'train.csv', index_col=0)   # [715 rows x 9 columns]
 test_csv = pd.read_csv(path + 'test.csv', index_col=0)     #[1459 rows x 10 columns]
