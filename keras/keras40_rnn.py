@@ -41,6 +41,7 @@ model.add(Dense(8))
 model.add(Dense(4))
 model.add(Dense(3))
 model.add(Dense(1))
+model.summary()
 #컴파일, 훈련
 model.compile(loss ='mae',optimizer ='adam')
 model.fit(x,y,epochs = 1000)
@@ -57,7 +58,4 @@ print('[8,9,10]의 결과 :',result)
 # [8,9,10]의 결과 : [[10.629714]]
 
 
-
-
-
-#RNN은 2차원 이상 가능
+# #RNN은 2차원 이상 가능
