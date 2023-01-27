@@ -62,9 +62,7 @@ model.add(Conv2D(512, (2,1)))
 model.add(Conv2D(256, (2,1)))
 model.add(Flatten()) 
 model.add(Dense(128, activation = 'relu'))
-
 model.add(Dense(64, activation = 'relu'))
-
 model.add(Dense(32, activation = 'relu'))
 model.add(Dense(24, activation = 'linear'))
 model.add(Dense(7, activation = 'softmax'))

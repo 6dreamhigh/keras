@@ -30,15 +30,15 @@ model.add(Dense(1))
 model.summary()
 
 
-# #컴파일, 훈련
-# model.compile(loss ='mae',optimizer ='adam')
-# model.fit(x,y,epochs = 1300)
+#컴파일, 훈련
+model.compile(loss ='mae',optimizer ='adam')
+model.fit(x,y,epochs = 1300)
 
-# #평가, 예측
-# loss = model.evaluate(x,y)
-# print('loss : ',loss)
-# #:Model was constructed with shape (None, 3, 1) 
-# y_pred = np.array([8,9,10]).reshape(1,3,1)
-# result = model.predict(y_pred)
-# print('[8,9,10]의 결과 :',result)
+#평가, 예측
+loss = model.evaluate(x,y)
+print('loss : ',loss)
+#:Model was constructed with shape (None, 3, 1) 
+y_pred = np.array([8,9,10]).reshape(1,3,1)
+result = model.predict(y_pred)
+print('[8,9,10]의 결과 :',result)
 
