@@ -1,5 +1,6 @@
 #앙상블은 여러개의 모델을 병합한 것
 import numpy as np
+path = '../_data/stock'
 x1_datasets = np.array([range(100),range(301,401)]).transpose()
 print(x1_datasets)  #(100,2)  삼성전자 시가,고가
 x2_datasets = np.array([range(101,201),range(411,511),range(150,250)]).T
