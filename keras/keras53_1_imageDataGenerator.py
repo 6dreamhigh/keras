@@ -20,7 +20,7 @@ test_datagen = ImageDataGenerator(
 xy_train = train_datagen.flow_from_directory(
     '../_data/brain/train/',
     target_size=(100,100),
-    batch_size=100000,   #데이터자체에서 미리 batch처리함
+    batch_size=10,   #데이터자체에서 미리 batch처리함
     class_mode='binary', #수치
     color_mode='grayscale',
     shuffle='True'

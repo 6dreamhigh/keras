@@ -65,7 +65,7 @@ last_output = Dense(1,name='last')(merge3) #1은 y컬럼 의미
 dense41 = Dense(11,activation='relu', name = 'ds41')(last_output)
 output4 = Dense(14,activation='relu', name = 'ds42')(dense41)
 
-#2-5 모델5분기2.
+#2-5 모델5 분기2.
 
 dense51 = Dense(11,activation='relu', name = 'ds51')(last_output)
 output5 = Dense(14,activation='relu', name = 'ds52')(dense51)
