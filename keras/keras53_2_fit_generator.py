@@ -22,7 +22,7 @@ test_datagen = ImageDataGenerator(
 xy_train = train_datagen.flow_from_directory(
     '../_data/brain/train/',
     target_size=(100,100),
-    batch_size=10,   #데이터자체에서 미리 batch처리함
+    batch_size=1000,   #데이터자체에서 미리 batch처리함
     class_mode='binary', #수치
     color_mode='grayscale',
     shuffle='True'
@@ -55,16 +55,18 @@ model.add(Dropout(0.15))
 model.add(Dense(26,activation='relu'))
 model.add(Dense(16,activation='relu'))
 model.add(Dense(1,activation='sigmoid')) #y값은 0과 1이므로 sigmoid / softmax
+# model.add(Dense(2,activation='softmax'))
 
 #3.컴파일, 훈련
 model.compile(loss ='binary_crossentropy',optimizer='adam',
               metrics=['acc'])
-
+# model.compile(loss ='sparse_categorical_crossentropy',optimizer='adam',
+#               metrics=['acc'])
 #4.평가, 검증
 hist = model.fit_generator(xy_train, steps_per_epoch=16, epochs =100,
                     validation_data = xy_test,
                     validation_steps=4)
-
+#160개의 데이터 나누기 batch_size =>steps_per_epoch=16
 accuracy = hist.history['acc']
 val_accuracy = hist.history['val_acc']
 loss = hist.history['loss']
